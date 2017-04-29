@@ -1,11 +1,14 @@
 var React = require('react');
+var Clock = require('Clock');
 
-var Timer = (props) => {
-  return (
+var Timer = React.createClass({
+  render: function() {
+    return (
     <div>
-      <p>example</p>
+      <Clock/>
     </div>
-  )
-};
+    )
+  }
+});
 
 module.exports = Timer;
