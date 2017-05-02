@@ -6,7 +6,7 @@ var TestUtils = require('react-addons-test-utils');
 
 var Clock = require('Clock');
 var CountdownForm = require('CountdownForm');
-
+var Countdown = require('Countdown');
 
 describe('Clock', () => {
   it('should exist', () => {
@@ -60,5 +60,33 @@ describe('CountdownForm', () => {
       TestUtils.Simulate.submit($el.find('form')[0]);
       expect(spy).toNotHaveBeenCalled();
     });
+  });
+
+  describe('handleSetCountdown', () => {
+    it('should pause countdown on paused status', () => {
+      var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('paused');
+
+      setTimeout(() => {
+        expect(countdown.this.state.count).toBe(3);
+        expect(countdown.this.state.countdownStatus).toBe('paused');
+        done();
+      }, 1001)
+    });
+
+    it('should reset count on stopped', () => {
+      var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('stopped');
+
+      setTimeout(() => {
+        expect(countdown.this.state.count).toBe(3);
+        expect(countdown.this.state.countdownStatus).toBe('stopped');
+        done();
+      }, 1001)
+    });
+
+
   });
 });
